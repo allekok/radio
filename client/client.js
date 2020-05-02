@@ -4,8 +4,8 @@ const epochTime = 1588368948
 const numberOfSongs = 425
 let currentSong = -1
 const playBtn = document.getElementById("playBtn")
-playBtn.onclick = Play
 bringToMiddle(playBtn)
+playBtn.onclick = Play
 const infoEl = document.getElementById("info")
 const audioEl = document.createElement("AUDIO")
 audioEl.onended = Play
@@ -20,7 +20,7 @@ function getUrl(url, callback) {
 function nextSong () {
 	const currentTime = Date.now() / 1000
 	let diffTime = currentTime - epochTime
-	/* Every 60 Seconds */
+	/* Every 84 Seconds */
 	diffTime = diffTime - ((84 - 1) * (diffTime / 84))
 	if(diffTime < 0) diffTime = 0
 	diffTime = Math.floor(diffTime)
