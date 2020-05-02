@@ -4,18 +4,11 @@ const epochTime = 1588368948
 const numberOfSongs = 425
 let currentSong = -1
 const playBtn = document.getElementById("playBtn")
-playBtn.onclick = function () {
-	Play()
-	playBtn.onclick = undefined
-}
+playBtn.onclick = Play
 bringToMiddle(playBtn)
 const infoEl = document.getElementById("info")
 const audioEl = document.createElement("AUDIO")
-audioEl.onended = function () {
-	if(currentSong >= numberOfSongs) currentSong = 0
-	else currentSong++
-	Play()
-}
+audioEl.onended = Play
 function getUrl(url, callback) {
 	const client = new XMLHttpRequest()
 	client.open("get", url)
@@ -27,13 +20,15 @@ function getUrl(url, callback) {
 function nextSong () {
 	const currentTime = Date.now() / 1000
 	let diffTime = currentTime - epochTime
-	diffTime = diffTime - (59 * (diffTime / 60)) /* Every 60 Seconds */
+	/* Every 60 Seconds */
+	diffTime = diffTime - ((84 - 1) * (diffTime / 84))
 	if(diffTime < 0) diffTime = 0
 	diffTime = Math.floor(diffTime)
 	return diffTime % numberOfSongs
 }
 function Play () {
-	if(currentSong == -1) currentSong = nextSong()
+	if(currentSong >= numberOfSongs) currentSong = 0
+	else currentSong = nextSong()
 	getUrl(`${dbPath}/${currentSong}`, function (client) {
 		let meta = client.responseText.split('\n')
 		infoEl.innerHTML = `${meta[1]}<br>${meta[2]}<br>
