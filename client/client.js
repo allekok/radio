@@ -27,8 +27,7 @@ function nextSong () {
 	return diffTime % numberOfSongs
 }
 function Play () {
-	if(currentSong >= numberOfSongs) currentSong = 0
-	else currentSong = nextSong()
+	currentSong = nextSong()
 	getUrl(`${dbPath}/${currentSong}`, function (client) {
 		let meta = client.responseText.split('\n')
 		infoEl.innerHTML = `${meta[1]}<br>${meta[2]}<br>
