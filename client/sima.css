@@ -20,8 +20,9 @@ a, #info, #playBtn {
 #playBtn:hover, a:hover {
 	color:#fff;
 }
-#info {
-	font-size:3em;
+#info-desc {
+	font-size:.8em;
+	margin-top:2em
 }
 a {
 	text-decoration:none;

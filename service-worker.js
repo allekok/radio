@@ -4,9 +4,8 @@ self.addEventListener('install', function (event) {
 		caches.open(cacheName).then(function (cache) {
 			return cache.addAll([
 				'service-worker.js',
-				'index.html',
-				'client/client.js',
-				'client/sima.css',
+				'client/client.js?v5',
+				'client/sima.css?v3',
 			])
 		})
 	)

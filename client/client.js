@@ -1,12 +1,17 @@
 
 const dbPath = 'server/list'
-const epochTime = 1588368948
-const numberOfSongs = 425
-let currentSong = -1
+const epochTime = 1588499720
+const numberOfSongs = 542
 const playBtn = document.getElementById("playBtn")
 bringToMiddle(playBtn)
 playBtn.onclick = Play
 const infoEl = document.getElementById("info")
+const infoMainEl = document.createElement("DIV")
+const infoDescEl = document.createElement("DIV")
+infoMainEl.id = "info-main"
+infoDescEl.id = "info-desc"
+infoEl.appendChild(infoMainEl)
+infoEl.appendChild(infoDescEl)
 const audioEl = document.createElement("AUDIO")
 audioEl.onended = Play
 function getUrl(url, callback) {
@@ -20,28 +25,31 @@ function getUrl(url, callback) {
 function nextSong () {
 	const currentTime = Date.now() / 1000
 	let diffTime = currentTime - epochTime
-	/* Every 84 Seconds */
-	diffTime = diffTime - ((84 - 1) * (diffTime / 84))
+	/* Every 3mins, 4secs. */
+	diffTime = diffTime - ((184 - 1) * (diffTime / 184))
 	if(diffTime < 0) diffTime = 0
 	diffTime = Math.floor(diffTime)
 	return diffTime % numberOfSongs
 }
 function Play () {
-	currentSong = nextSong()
+	const currentSong = nextSong()
 	getUrl(`${dbPath}/${currentSong}`, function (client) {
-		let meta = client.responseText.split('\n')
-		infoEl.innerHTML = `${meta[1]}<br>${meta[2]}<br>
-<a target="_blank" href="${meta[3]}">داگرتن</a>`
-		audioEl.src = meta[3]
+		let meta = client.responseText.split('\n\n')
+		meta[3] = meta[3].replace(/\n/g, "<br>")
+		infoMainEl.innerHTML = `${meta[0]}<br>${meta[1]}<br>
+<a target="_blank" href="${meta[2]}">داگرتن</a>`
+		infoDescEl.innerHTML = meta[3]
+		audioEl.src = meta[2]
 		audioEl.play()
 		playBtn.style.display = "none"
 		resizeToPerfect(infoEl)
-		bringToMiddle(infoEl)
+		bringToMiddle(infoMainEl)
 	})
 }
 function bringToMiddle (el) {
-	const top = (window.innerHeight / 2) -
+	let top = (window.innerHeight / 2) -
 	      (el.offsetHeight / 2) - 20
+	if(top < 0) top = 0
 	el.style.marginTop = `${top}px`
 }
 function resizeToPerfect (el) {
@@ -51,5 +59,5 @@ function resizeToPerfect (el) {
 window.onresize = function () {
 	bringToMiddle(playBtn)
 	resizeToPerfect(infoEl)
-	bringToMiddle(infoEl)
+	bringToMiddle(infoMainEl)
 }
