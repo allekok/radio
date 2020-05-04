@@ -19,6 +19,7 @@ function nextSong () {
 	return Math.floor(Math.random() * numberOfSongs)
 }
 function Play () {
+	audioEl.remove()
 	const currentSong = nextSong()
 	getUrl(`${dbPath}/${currentSong}`, function (client) {
 		let meta = client.responseText.split('\n\n')
@@ -26,7 +27,6 @@ function Play () {
 		infoMainEl.innerHTML = `${meta[0]}<br>${meta[1]}<br>
 <a target="_blank" href="${meta[2]}">داگرتن</a>`
 		infoDescEl.innerHTML = meta[3]
-		audioEl.remove()
 		audioEl.src = meta[2]
 		audioEl.play()
 		resizeToPerfect(infoEl)
