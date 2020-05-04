@@ -20,8 +20,9 @@ function list_KLC ($repo) {
 		if(!is_array($amb)) return $amb;
 		$str = "";
 		foreach($amb as $o) {
+			$str .= "\n";
 			if(is_array($o)) $str .= _as_string($o);
-			else $str .= "\n" . trim($o);
+			else $str .= trim($o);
 		}
 		return trim($str);
 	}
