@@ -8,6 +8,8 @@ $repos = [["تاهیر تۆفیق", "list_tahir_tofiq",
 	   "https://allekok.github.io/eli-merdan"],
 	  ["محەممەد ماملێ", "list_mamle",
 	   "https://allekok.github.io/mamle"],
+	  ["خدر قادری", "list_xdr_qadri",
+	   "https://allekok.github.io/xile-derzi"],
 	  ["KurdishLyricsCorpus", "list_KLC",
 	   "https://allekok.github.io/KurdishLyricsCorpus"]];
 
@@ -15,6 +17,26 @@ function list_tahir_tofiq ($repo) { return list_allekok($repo); }
 function list_zirek ($repo) { return list_allekok($repo); }
 function list_eli_merdan ($repo) { return list_allekok($repo); }
 function list_mamle ($repo) { return list_allekok($repo); }
+function list_xdr_qadri ($repo) {
+	$albums = download(list_allekok_url($repo[2]));
+	$albums = explode("\n", $albums);
+	$i = 0;
+	foreach($albums as $album) {
+		$url = "$repo[2]/".urlencode("دەنگ")."/".
+		       str_replace("+", "%20", urlencode($album))."/list.txt";
+		$list = explode("\n", download($url));
+		foreach($list as $item) {
+			$new_list[$i] = [
+				$repo[0], /* Singer */
+				sanitize($album)."/".sanitize($item), /* Song */
+				"$repo[2]/دەنگ/$album/$item", /* Song Url */
+				"", /* Description */
+			];
+			$i++;
+		}
+	}
+	return $new_list;
+}
 function list_KLC ($repo) {
 	function _as_string ($amb) {
 		if(!is_array($amb)) return $amb;
@@ -77,6 +99,10 @@ function rmdir_ ($path) {
 	rmdir($path);
 }
 function sanitize ($song_name) {
+	/* 'mp3' has character:'3' in it so we will 
+	   remove it before applying 'kurdish_numbers' */
+	$song_name = str_ireplace([".mp3"], "", $song_name);
+	$song_name = kurdish_numbers($song_name);
 	$song_name_len = mb_strlen($song_name);
 	for($i = 0; $i < $song_name_len; $i++) {
 		$c = mb_substr($song_name, $i, 1);
@@ -87,12 +113,16 @@ function sanitize ($song_name) {
 		else
 			$song_name = str_replace_pos($c, " ", $song_name, $i);
 	}
-	$song_name = preg_replace("/\s+/u", " ", $song_name);
+	$song_name = preg_replace("/\s+/u", " ", trim($song_name));
 	return $song_name;
 }
 function str_replace_pos ($from, $to, $str, $pos) {
 	return mb_substr($str, 0, $pos) . $to .
 	       mb_substr($str, $pos + mb_strlen($from));
+}
+function kurdish_numbers ($s) {
+	return str_replace(["1","2","3","4","5","6","7","8","9","0"],
+			   ["١","٢","٣","٤","٥","٦","٧","٨","٩","٠"],$s);
 }
 
 /* Collecting */

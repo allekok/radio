@@ -25,7 +25,7 @@ a, #info, #playBtn {
 	outline:0;
 	padding:0;
 	height:0;
-	font-size:4em;
+	font-size:5em;
 	letter-spacing:-.2em
 }
 #playBtn:hover, a:hover {
@@ -61,13 +61,13 @@ a {
 	</head>
 	<body>
 		<div id="info">
-			<button autofocus id="playBtn">&#x25b6;&#x25b6;</button>
+			<button autofocus id="playBtn">&#x25b6;</button>
 			<div id="info-main"></div>
 			<div id="info-desc"></div>
 		</div>
 		<script>
 const dbPath = 'server/list'
-const numberOfSongs = 542
+const numberOfSongs = 631
 const playBtn = document.getElementById("playBtn")
 playBtn.onclick = Play
 bringToMiddle(playBtn)
