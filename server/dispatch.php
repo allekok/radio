@@ -66,16 +66,6 @@ function download ($url, $timeout=1, $times=-1) {
 	      $times-- !== 0) sleep($timeout);
 	return trim($res);
 }
-function randomize ($list) {
-	$last_item = count($list) - 1;
-	$new_list = [];
-	for($i = 0; $i <= $last_item; ) {
-		$new_i = mt_rand(0, $last_item);
-		if(isset($new_list[$new_i])) continue;
-		else $new_list[$new_i] = $list[$i++];
-	}
-	return $new_list;
-}
 function rmdir_ ($path) {
 	$files = scandir($path);
 	foreach($files as $file) {
@@ -114,7 +104,6 @@ foreach($repos as $repo) {
 	$global_list = array_merge($global_list, $list);
 	echo "$repo[0]\tAdded.\n";
 }
-$global_list = randomize($global_list);
 
 /* Saving */
 rmdir_($output_dir);
@@ -128,11 +117,9 @@ foreach($global_list as $i => $_) {
 
 /* server.js */
 $db_path = "server/$output_dir";
-$epoch = time();
 $global_list_len = count($global_list);
 file_put_contents("../client/server.js", "
 const dbPath = '{$db_path}'
-const epochTime = {$epoch}
 const numberOfSongs = {$global_list_len}
 ");
 

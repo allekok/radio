@@ -15,7 +15,9 @@ a, #info, #playBtn {
 	border:0;
 	outline:0;
 	padding:0;
-	font-size:15em;
+	height:0;
+	font-size:4em;
+	letter-spacing:-.2em
 }
 #playBtn:hover, a:hover {
 	color:#fff;
