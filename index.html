@@ -68,6 +68,8 @@ a {
 		<script>
 const dbPath = 'server/list'
 const numberOfSongs = 631
+const playlist = makePlaylist()
+let N = 0
 const playBtn = document.getElementById("playBtn")
 playBtn.onclick = Play
 bringToMiddle(playBtn)
@@ -85,23 +87,51 @@ function getUrl(url, callback) {
 	}
 	client.send()
 }
-function nextSong () {
+function randomSong () {
 	return Math.floor(Math.random() * numberOfSongs)
 }
+function makePlaylist () {
+	let list = []
+	for(let i = 0; i < numberOfSongs; i++) {
+		let next
+		while((next = randomSong()) in list);
+		list.push(next)
+	}
+	return list
+}
+function nextSong () {
+	if(N >= numberOfSongs) N = 0
+	return playlist[N++]
+}
 function Play () {
+	audioEl.pause()
 	audioEl.remove()
 	const currentSong = nextSong()
-	getUrl(`${dbPath}/${currentSong}`, function (client) {
-		let meta = client.responseText.split('\n\n')
-		meta[3] = meta[3].replace(/\n/g, "<br>")
-		infoMainEl.innerHTML = `${meta[0]}<br>${meta[1]}<br>
+	if(currentSong in sessionStorage)
+		_Play(sessionStorage.getItem(currentSong))
+	else
+		getUrl(`${dbPath}/${currentSong}`, function (client) {
+			const text = client.responseText
+			_Play(text)
+			sessionStorage.setItem(currentSong, text)
+		})
+	/* And download meta data of the next song as well */
+	const next = nextSong(); N--
+	if(! (next in sessionStorage))
+		getUrl(`${dbPath}/${next}`, function (client) {
+			sessionStorage.setItem(next, client.responseText)
+		})
+}
+function _Play (text) {
+	let meta = text.split('\n\n')
+	meta[3] = meta[3].replace(/\n/g, "<br>")
+	infoMainEl.innerHTML = `${meta[0]}<br>${meta[1]}<br>
 <a target="_blank" href="${meta[2]}">داگرتن</a>`
-		infoDescEl.innerHTML = meta[3]
-		audioEl.src = meta[2]
-		audioEl.play()
-		resizeToPerfect(infoEl)
-		bringToMiddle(playBtn)
-	})
+	infoDescEl.innerHTML = meta[3]
+	audioEl.src = meta[2]
+	audioEl.play()
+	resizeToPerfect(infoEl)
+	bringToMiddle(playBtn)
 }
 function bringToMiddle (el) {
 	let top = (window.innerHeight / 2) -
