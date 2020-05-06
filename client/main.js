@@ -2,11 +2,11 @@ const playlist = makePlaylist()
 let N = 0
 const playBtn = document.getElementById("playBtn")
 playBtn.onclick = Play
-bringToMiddle(playBtn)
 const infoEl = document.getElementById("info")
 const infoMainEl = infoEl.querySelector("#info-main")
 const infoDescEl = infoEl.querySelector("#info-desc")
 resizeToPerfect(infoEl)
+bringToMiddle(infoEl)
 const audioEl = document.createElement("AUDIO")
 audioEl.onended = Play
 function getUrl(url, callback) {
@@ -61,11 +61,11 @@ function _Play (text) {
 	audioEl.src = meta[2]
 	audioEl.play()
 	resizeToPerfect(infoEl)
-	bringToMiddle(playBtn)
+	bringToMiddle(infoEl)
 }
 function bringToMiddle (el) {
 	let top = (window.innerHeight / 2) -
-	    (el.offsetHeight / 2) - 150
+	    (el.offsetHeight / 2) - 50
 	if(top < 0) top = 0
 	el.style.marginTop = `${top}px`
 }
@@ -75,5 +75,5 @@ function resizeToPerfect (el) {
 }
 window.onresize = function () {
 	resizeToPerfect(infoEl)
-	bringToMiddle(playBtn)
+	bringToMiddle(infoEl)
 }
