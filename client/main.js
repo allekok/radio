@@ -36,6 +36,8 @@ function nextSong () {
 function Play () {
 	audioEl.pause()
 	audioEl.remove()
+	infoMainEl.innerHTML = '....'
+	infoDescEl.innerHTML = ''
 	const currentSong = nextSong()
 	if(currentSong in sessionStorage)
 		_Play(sessionStorage.getItem(currentSong))
