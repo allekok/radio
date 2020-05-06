@@ -61,7 +61,7 @@ function _Play (text) {
 	audioEl.src = meta[2]
 	audioEl.play()
 	resizeToPerfect(infoEl)
-	bringToMiddle(infoEl)
+	infoEl.style.marginTop = "0"
 }
 function bringToMiddle (el) {
 	let top = (window.innerHeight / 2) -
@@ -75,5 +75,4 @@ function resizeToPerfect (el) {
 }
 window.onresize = function () {
 	resizeToPerfect(infoEl)
-	bringToMiddle(infoEl)
 }
