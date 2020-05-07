@@ -67,6 +67,7 @@ a {
 		<script>
 const dbPath = 'server/list'
 const numberOfSongs = 631
+
 const playlist = makePlaylist()
 let N = 0
 const playBtn = document.getElementById("playBtn")
@@ -146,6 +147,8 @@ function resizeToPerfect (el) {
 }
 window.onresize = function () {
 	resizeToPerfect(infoEl)
+	if(!infoMainEl.innerHTML || infoMainEl.innerHTML == '....')
+		bringToMiddle(infoEl)
 }
 </script>
 	</body>

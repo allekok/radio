@@ -5,7 +5,7 @@ $CSS = "<style>$CSS</style>";
 
 /* Read JS */
 $JS = file_get_contents("server.js");
-$JS .= file_get_contents("main.js");
+$JS .= "\n" . file_get_contents("main.js");
 $JS = "<script>$JS</script>";
 
 /* Read INDEX */

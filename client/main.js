@@ -77,4 +77,6 @@ function resizeToPerfect (el) {
 }
 window.onresize = function () {
 	resizeToPerfect(infoEl)
+	if(!infoMainEl.innerHTML || infoMainEl.innerHTML == '....')
+		bringToMiddle(infoEl)
 }
