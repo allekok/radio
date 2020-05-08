@@ -9,7 +9,7 @@ $repos = [["تاهیر تۆفیق", "list_tahir_tofiq",
 	  ["محەممەد ماملێ", "list_mamle",
 	   "https://allekok.github.io/mamle"],
 	  ["خدر قادری", "list_xdr_qadri",
-	   "https://allekok.github.io/xile-derzi"],
+	   "https://allekok.github.io/xdr-qadri"],
 	  ["KurdishLyricsCorpus", "list_KLC",
 	   "https://allekok.github.io/KurdishLyricsCorpus"]];
 
