@@ -5,8 +5,9 @@ body {
 	text-align:center;
 	margin:.5em;
 }
-a, #info {
+a, #info, #playBtn {
 	color:#55FF55;
+	transition:all .2s;
 }
 #playBtn {
 	appearance:none;

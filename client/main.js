@@ -78,11 +78,15 @@ function resizeToPerfect (el, prop="fs") {
 	if(prop == "fs")
 		el.style.fontSize = `${s+5}px`
 	else
-		el.style.width = `${s+110}px`
+		el.style.width = `${s+130}px`
 }
 window.onresize = function () {
 	resizeToPerfect(infoEl)
 	resizeToPerfect(playSvg, 'w')
 	if(!infoMainEl.innerHTML)
 		bringToMiddle(playBtn)
+}
+window.onkeyup = function (e) {
+	if(e.keyCode == 13)
+		playBtn.click()
 }
