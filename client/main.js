@@ -1,12 +1,14 @@
 const playlist = makePlaylist()
 let N = 0
 const playBtn = document.getElementById("playBtn")
+const playSvg = playBtn.querySelector("svg")
 playBtn.onclick = Play
+resizeToPerfect(playSvg, 'w')
+bringToMiddle(playBtn)
 const infoEl = document.getElementById("info")
 const infoMainEl = infoEl.querySelector("#info-main")
 const infoDescEl = infoEl.querySelector("#info-desc")
 resizeToPerfect(infoEl)
-bringToMiddle(infoEl)
 const audioEl = document.createElement("AUDIO")
 audioEl.onended = Play
 function getUrl(url, callback) {
@@ -63,7 +65,7 @@ function _Play (text) {
 	audioEl.src = meta[2]
 	audioEl.play()
 	resizeToPerfect(infoEl)
-	infoEl.style.marginTop = "0"
+	playBtn.style.marginTop = '0'
 }
 function bringToMiddle (el) {
 	let top = (window.innerHeight / 2) -
@@ -71,12 +73,16 @@ function bringToMiddle (el) {
 	if(top < 0) top = 0
 	el.style.marginTop = `${top}px`
 }
-function resizeToPerfect (el) {
-	const fs = Math.sqrt(window.innerWidth) + 5
-	el.style.fontSize = `${fs}px`
+function resizeToPerfect (el, prop="fs") {
+	const s = Math.sqrt(window.innerWidth)
+	if(prop == "fs")
+		el.style.fontSize = `${s+5}px`
+	else
+		el.style.width = `${s+110}px`
 }
 window.onresize = function () {
 	resizeToPerfect(infoEl)
-	if(!infoMainEl.innerHTML || infoMainEl.innerHTML == '....')
-		bringToMiddle(infoEl)
+	resizeToPerfect(playSvg, 'w')
+	if(!infoMainEl.innerHTML)
+		bringToMiddle(playBtn)
 }

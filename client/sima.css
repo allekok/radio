@@ -5,7 +5,7 @@ body {
 	text-align:center;
 	margin:.5em;
 }
-a, #info, #playBtn {
+a, #info {
 	color:#55FF55;
 }
 #playBtn {
@@ -15,12 +15,12 @@ a, #info, #playBtn {
 	border:0;
 	outline:0;
 	padding:0;
-	height:0;
-	font-size:5em;
-	letter-spacing:-.2em
 }
-#playBtn:hover, a:hover {
-	color:#fff;
+#playBtn svg {
+	width:2em;
+}
+#playBtn:hover {
+	filter:saturate(0);
 }
 #info-desc {
 	font-size:.8em;
@@ -30,6 +30,9 @@ a {
 	text-decoration:none;
 	border-bottom:1px solid;
 	padding-bottom:7px;
+}
+a:hover {
+	color:#FFF;
 }
 ::-webkit-scrollbar {
 	width:.75em;
