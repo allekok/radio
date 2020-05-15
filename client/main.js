@@ -49,12 +49,13 @@ function Play () {
 			_Play(text)
 			sessionStorage.setItem(currentSong, text)
 		})
-	/* And download meta data of the next song as well */
-	const next = nextSong(); N--
-	if(! (next in sessionStorage))
-		getUrl(`${dbPath}/${next}`, function (client) {
-			sessionStorage.setItem(next, client.responseText)
-		})
+	/* And download meta data of next songs as well */
+	for(const next of [nextSong(), nextSong()])
+		if(! (next in sessionStorage))
+			getUrl(`${dbPath}/${next}`, function (client) {
+				sessionStorage.setItem(next, client.responseText)
+			})
+	N-=2
 }
 function _Play (text) {
 	let meta = text.split('\n\n')
@@ -87,6 +88,6 @@ window.onresize = function () {
 		bringToMiddle(playBtn)
 }
 window.onkeyup = function (e) {
-	if(e.keyCode == 13)
+	if(e.keyCode == 13 && e.srcElement != playBtn)
 		playBtn.click()
 }
