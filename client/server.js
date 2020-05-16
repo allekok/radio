@@ -1,3 +1,3 @@
 
 const dbPath = 'server/list'
-const numberOfSongs = 631
+const numberOfSongs = 630
