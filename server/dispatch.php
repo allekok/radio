@@ -101,7 +101,7 @@ function rmdir_ ($path) {
 function sanitize ($song_name) {
 	/* 'mp3' has character:'3' in it so we will 
 	   remove it before applying 'kurdish_numbers' */
-	$song_name = str_ireplace([".mp3"], "", $song_name);
+	$song_name = str_ireplace([".mp3",".m4a"], "", $song_name);
 	$song_name = kurdish_numbers($song_name);
 	$song_name_len = mb_strlen($song_name);
 	for($i = 0; $i < $song_name_len; $i++) {
