@@ -26,7 +26,7 @@ function makePlaylist () {
 	let list = []
 	for(let i = 0; i < numberOfSongs; i++) {
 		let next
-		while((next = randomSong()) in list);
+		while(list.indexOf(next = randomSong()) !== -1);
 		list.push(next)
 	}
 	return list
