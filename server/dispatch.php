@@ -10,8 +10,8 @@ $repos = [["تاهیر تۆفیق", "list_tahir_tofiq",
 	   "https://allekok.github.io/mamle"],
 	  ["خدر قادری", "list_xdr_qadri",
 	   "https://allekok.github.io/xdr-qadri"],
-	  ["KurdishLyricsCorpus", "list_KLC",
-	   "https://allekok.github.io/KurdishLyricsCorpus"]];
+	  ["gorani-kurdi", "list_gorani_kurdi",
+	   "https://allekok.github.io/gorani-kurdi"]];
 
 function list_tahir_tofiq ($repo) { return list_allekok($repo); }
 function list_zirek ($repo) { return list_allekok($repo); }
@@ -37,7 +37,7 @@ function list_xdr_qadri ($repo) {
 	}
 	return $new_list;
 }
-function list_KLC ($repo) {
+function list_gorani_kurdi ($repo) {
 	function _as_string ($amb) {
 		if(!is_array($amb)) return $amb;
 		$str = "";
