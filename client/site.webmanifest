@@ -1,14 +1,14 @@
 {
-    "name": "ڕادیۆ",
-    "short_name": "ڕادیۆ",
-    "icons": [
-        {
-            "src": "/radio/client/logo.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#000000",
-    "background_color": "#000000",
-    "display": "standalone"
+	"name": "ڕادیۆ",
+	"short_name": "ڕادیۆ",
+	"icons": [
+		{
+			"src": "/radio/client/logo.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#000000",
+	"background_color": "#000000",
+	"display": "standalone"
 }
